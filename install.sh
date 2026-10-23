@@ -36,9 +36,10 @@ say "Installing DataSecure…"
 mkdir -p "$DEST" "$AGENTS"
 
 # Run from a downloaded copy of the repo? Use those files. Otherwise fetch the pinned release.
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]:-.}")" 2>/dev/null && pwd || echo .)"
+HERE=""
+[ -f "${BASH_SOURCE[0]:-}" ] && HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # empty when piped from curl
 for f in datasecure.rb index.html install.sh; do
-  if [ -f "$HERE/$f" ] && [ "$HERE" != "$DEST" ]; then
+  if [ -n "$HERE" ] && [ -f "$HERE/$f" ] && [ "$HERE" != "$DEST" ]; then
     cp "$HERE/$f" "$DEST/$f"
   else
     curl -fsSL "$RAW/$f" -o "$DEST/$f"
