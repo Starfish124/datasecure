@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" font-family="-apple-system, 'Segoe UI', system-ui, sans-serif" role="img" aria-label="Shield step: in System Settings, Device Management, double-click DataSecure Private Shield">
+  <rect width="640" height="360" rx="18" fill="#fdf2f6"/>
+  <circle cx="40" cy="40" r="20" fill="#c2185b"/><text x="40" y="47" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text x="72" y="47" font-size="18" font-weight="600" fill="#4a1f33">Double-click “DataSecure Private Shield”</text>
+  <rect x="40" y="76" width="560" height="230" rx="14" fill="#fff" stroke="#f0c6d8" stroke-width="2"/>
+  <path d="M41 90 a13 13 0 0 1 13 -13 h126 v228 h-126 a13 13 0 0 1 -13 -13 z" fill="#f7eef2"/>
+  <circle cx="62" cy="96" r="5" fill="#ff5f57"/><circle cx="78" cy="96" r="5" fill="#febc2e"/><circle cx="94" cy="96" r="5" fill="#28c840"/>
+  <g font-size="13" fill="#6b4757">
+    <rect x="52" y="122" width="116" height="10" rx="5" fill="#ead7df"/>
+    <rect x="52" y="144" width="96" height="10" rx="5" fill="#ead7df"/>
+    <rect x="48" y="164" width="124" height="28" rx="7" fill="#c2185b"/><text x="62" y="183" fill="#fff" font-weight="600">General</text>
+    <rect x="52" y="206" width="104" height="10" rx="5" fill="#ead7df"/>
+    <rect x="52" y="228" width="84" height="10" rx="5" fill="#ead7df"/>
+    <rect x="52" y="250" width="110" height="10" rx="5" fill="#ead7df"/>
+  </g>
+  <text x="204" y="118" font-size="12" fill="#9b6b80">General  ›</text>
+  <text x="204" y="142" font-size="20" font-weight="700" fill="#2b1520">Device Management</text>
+  <rect x="204" y="162" width="372" height="64" rx="10" fill="#fdf2f6" stroke="#c2185b" stroke-width="2.5"/>
+  <rect x="218" y="174" width="40" height="40" rx="9" fill="#fce4ef"/>
+  <path d="M238 180 l13 5 v9 c0 8 -6 13 -13 16 c-7 -3 -13 -8 -13 -16 v-9 z" fill="#c2185b"/><path d="M232 195 l4.5 4.5 l8 -8.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="272" y="191" font-size="16" font-weight="600" fill="#2b1520">DataSecure Private Shield</text>
+  <text x="272" y="211" font-size="13" fill="#b45309">Unverified</text>
+  <path d="M520 214 l0 30 l8 -7 l6 13 l6 -3 l-6 -12 l10 -1 z" fill="#2b1520" stroke="#fff" stroke-width="1.5"/>
+  <text x="430" y="272" font-size="13" font-weight="600" fill="#c2185b">double-click</text>
+  <text x="320" y="336" font-size="14" fill="#7a4a60" text-anchor="middle">System Settings → General → Device Management (older Macs: “Profiles”).</text>
+</svg>

@@ -1,4 +1,4 @@
-# DataSecure v0.1
+# DataSecure v0.1 <img src="docs/ribbon.svg" height="30" alt="pink ribbon">
 
 **A free personal cyber protection kit for your Mac, made for people who are not into tech.**
 By Sarvesh Singh · MIT License
@@ -16,18 +16,37 @@ DataSecure opens a simple page in your browser that runs only on your own Mac. I
 
 ## Install (3 minutes)
 
-1. Press **⌘ Command + Space**, type **Terminal**, press **Enter**. A window with text opens.
-2. Copy this whole line, paste it into that window, and press **Enter**:
+**1. Open the Terminal app.** Press **⌘ Command + Space**, type **Terminal**, press **return**.
 
-   ```
-   curl -fsSL https://raw.githubusercontent.com/Starfish124/datasecure/v0.1.0/install.sh | bash
-   ```
+<img src="docs/install-1-terminal.svg" width="640" alt="Press Command and Space, type Terminal, press return">
 
-3. Wait until it says **Done**. DataSecure opens in your browser. You can close Terminal now.
-4. Bookmark the page (**⌘ Command + D**). Its address is `http://127.0.0.1:7777`, which means "this computer".
-5. Start on the **Overview** page and fix everything that is red.
+**2. Paste this line and press return.** Copy the whole line (the copy button on the right of the box works), click in the Terminal window, press **⌘ Command + V**, then **return**:
+
+```
+curl -fsSL https://raw.githubusercontent.com/Starfish124/datasecure/v0.1.0/install.sh | bash
+```
+
+<img src="docs/install-2-paste.svg" width="640" alt="The install line pasted into Terminal">
+
+**3. Wait for "Done".** DataSecure opens in your browser by itself. You can close Terminal now.
+
+<img src="docs/install-3-done.svg" width="640" alt="Terminal says Done and DataSecure opens in the browser">
+
+**4. Bookmark the page** with **⌘ Command + D**. Its address is `http://127.0.0.1:7777`, which means "this computer".
+
+<img src="docs/install-4-bookmark.svg" width="640" alt="Bookmark the page with Command and D">
+
+**5. Start on the Overview page.** It shows four steps. Take them one at a time.
 
 You never need Terminal again. DataSecure starts by itself when you turn on your Mac.
+
+### Turning on the Private Shield
+
+On the **Private Shield** page, click **Create my shield**. System Settings opens:
+
+<img src="docs/shield-1-settings.svg" width="640" alt="System Settings, General, Device Management: double-click DataSecure Private Shield">
+
+<img src="docs/shield-2-install.svg" width="640" alt="Click Install. Unverified is normal. Type your Mac password.">
 
 ## Remove
 
@@ -56,7 +75,7 @@ DataSecure collects nothing and has no account. It never asks for your Mac passw
 
 ## For developers
 
-Six files, no dependencies:
+No dependencies:
 
 | File | Job |
 |---|---|
@@ -64,6 +83,7 @@ Six files, no dependencies:
 | `index.html` | The whole page: tutorials, styles and script inline |
 | `install.sh` | Installs to `~/.datasecure`, adds two LaunchAgents (server + daily check), `--uninstall` removes it all |
 | `test.sh` | Starts a throwaway server and tests every feature |
+| `docs/*.svg` | Illustrated tutorials (README + page) and the ribbon |
 
 Run the tests: `bash test.sh`
 

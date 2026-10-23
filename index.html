@@ -6,33 +6,46 @@
 <title>DataSecure</title>
 <style>
 :root {
-  --bg: #f5f5f5; --card: #ffffff; --text: #242424; --muted: #616161; --border: #e0e0e0;
-  --accent: #0f6cbd; --accent-hover: #115ea3; --accent-bg: #ebf3fc;
+  --bg: #fdf7f9; --card: #ffffff; --text: #2b1520; --muted: #75586a; --border: #f0dde5;
+  --accent: #c2185b; --accent-hover: #a3154d; --accent-bg: #fdeef4; --on-accent: #ffffff;
   --ok: #0e700e; --ok-bg: #f1faf1; --bad: #b10e1c; --bad-bg: #fdf3f4;
-  --warn: #8a3707; --warn-bg: #fff9f5; --unk: #616161; --unk-bg: #f0f0f0;
+  --warn: #8a3707; --warn-bg: #fff9f5; --unk: #75586a; --unk-bg: #f6eef2;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1f1f1f; --card: #292929; --text: #ffffff; --muted: #adadad; --border: #3d3d3d;
-    --accent: #479ef5; --accent-hover: #62abf5; --accent-bg: #082338;
-    --ok: #54b054; --ok-bg: #052505; --bad: #dc626d; --bad-bg: #3b0509; --warn: #faa06b; --warn-bg: #2e2410;
-    --unk: #adadad; --unk-bg: #333333;
+    --bg: #1d181a; --card: #282124; --text: #fff5f9; --muted: #c4a9b6; --border: #46363d;
+    --accent: #f472b6; --accent-hover: #f9a8d4; --accent-bg: #3b1528; --on-accent: #2b1520;
+    --ok: #54b054; --ok-bg: #052505; --bad: #f08a94; --bad-bg: #3b0509; --warn: #faa06b; --warn-bg: #2e2410;
+    --unk: #c4a9b6; --unk-bg: #352b30;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #1f1f1f; --card: #292929; --text: #ffffff; --muted: #adadad; --border: #3d3d3d;
-  --accent: #479ef5; --accent-hover: #62abf5; --accent-bg: #082338;
-  --ok: #54b054; --ok-bg: #052505; --bad: #dc626d; --bad-bg: #3b0509; --warn: #faa06b; --warn-bg: #2e2410;
-  --unk: #adadad; --unk-bg: #333333;
+  --bg: #1d181a; --card: #282124; --text: #fff5f9; --muted: #c4a9b6; --border: #46363d;
+    --accent: #f472b6; --accent-hover: #f9a8d4; --accent-bg: #3b1528; --on-accent: #2b1520;
+    --ok: #54b054; --ok-bg: #052505; --bad: #f08a94; --bad-bg: #3b0509; --warn: #faa06b; --warn-bg: #2e2410;
+    --unk: #c4a9b6; --unk-bg: #352b30;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 "Segoe UI Variable", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
 header { height: 48px; display: flex; align-items: center; gap: 12px; padding: 0 20px; background: var(--card); border-bottom: 1px solid var(--border); }
 header b { font-size: 16px; font-weight: 600; }
+.ribbon { width: 26px; height: 21px; flex: none; margin-left: -6px; }
+.card.welcome { display: flex; gap: 20px; align-items: center; background: var(--accent-bg); border-color: var(--border); padding: 20px 24px; }
+.welcome h1 { display: flex; align-items: center; gap: 8px; }
+.welcome .ribbon { width: 34px; height: 28px; margin: 0; }
+.start { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+.start .card { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.start .num { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.start .num span { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-size: 13px; }
+.start svg { width: 28px; height: 28px; color: var(--accent); margin-left: auto; }
+.start p { margin: 0; color: var(--muted); flex: 1; }
+.start .btn { align-self: flex-start; }
+.pics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.pics img { width: 100%; height: auto; display: block; border-radius: 12px; }
 header span { color: var(--muted); font-size: 12px; }
 .shell { display: flex; min-height: calc(100vh - 48px); }
 nav { width: 232px; flex: none; padding: 12px 8px; background: var(--card); border-right: 1px solid var(--border); }
-nav a { display: block; padding: 8px 12px; margin-bottom: 2px; border-radius: 4px; color: var(--text); text-decoration: none; border-left: 3px solid transparent; }
+nav a { display: block; padding: 8px 12px; margin-bottom: 2px; border-radius: 8px; color: var(--text); text-decoration: none; border-left: 3px solid transparent; }
 nav a:hover { background: var(--bg); }
 nav a.active { background: var(--accent-bg); border-left-color: var(--accent); font-weight: 600; }
 main { flex: 1; padding: 24px 32px 48px; max-width: 980px; }
@@ -41,8 +54,8 @@ section.active { display: block; }
 h1 { font-size: 24px; font-weight: 600; margin: 0 0 4px; }
 h2 { font-size: 16px; font-weight: 600; margin: 28px 0 8px; }
 .lead { color: var(--muted); margin: 0 0 20px; }
-.card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 16px 20px; margin-bottom: 12px; }
-.explain { background: var(--accent-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; padding: 12px 16px; margin-bottom: 20px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; }
+.explain { background: var(--accent-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; }
 .explain > b { display: block; margin-bottom: 4px; }
 .explain p { margin: 4px 0; }
 .row { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-top: 1px solid var(--border); }
@@ -56,19 +69,19 @@ h2 { font-size: 16px; font-weight: 600; margin: 28px 0 8px; }
 .unknown .icon { background: var(--unk-bg); color: var(--unk); border: 1px solid var(--unk); }
 ol.steps { margin: 8px 0 0; padding-left: 20px; }
 ol.steps li { margin: 2px 0; }
-button, .btn { font: inherit; font-weight: 600; padding: 5px 14px; min-height: 32px; border-radius: 4px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; white-space: nowrap; }
+button, .btn { font: inherit; font-weight: 600; padding: 5px 14px; min-height: 32px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; white-space: nowrap; }
 button:hover, .btn:hover { background: var(--bg); }
-button.primary, .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.primary, .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 button.primary:hover, .btn.primary:hover { background: var(--accent-hover); }
 button:disabled { opacity: .5; cursor: default; }
-input[type=text], input[type=email], input[type=password] { font: inherit; padding: 5px 10px; min-height: 32px; border: 1px solid var(--border); border-bottom-color: var(--muted); border-radius: 4px; background: var(--card); color: var(--text); width: 100%; max-width: 360px; }
+input[type=text], input[type=email], input[type=password] { font: inherit; padding: 5px 10px; min-height: 32px; border: 1px solid var(--border); border-bottom-color: var(--muted); border-radius: 8px; background: var(--card); color: var(--text); width: 100%; max-width: 360px; }
 input:focus { outline: none; border-bottom: 2px solid var(--accent); }
 .inline { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .score { display: flex; align-items: baseline; gap: 10px; }
 .score strong { font-size: 40px; font-weight: 600; }
 .bar { height: 6px; background: var(--unk-bg); border-radius: 3px; margin-top: 8px; overflow: hidden; }
 .bar div { height: 100%; background: var(--accent); }
-.msg { margin-top: 10px; padding: 10px 14px; border-radius: 4px; border: 1px solid; }
+.msg { margin-top: 10px; padding: 10px 14px; border-radius: 8px; border: 1px solid; }
 .msg.ok { color: var(--ok); background: var(--ok-bg); border-color: var(--ok); }
 .msg.bad { color: var(--bad); background: var(--bad-bg); border-color: var(--bad); }
 .msg.warn { color: var(--warn); background: var(--warn-bg); border-color: var(--warn); }
@@ -83,18 +96,20 @@ label.check { display: flex; gap: 8px; align-items: center; }
 .small { font-size: 12px; }
 a { color: var(--accent); }
 code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; background: var(--unk-bg); padding: 2px 6px; border-radius: 3px; word-break: break-all; }
+@media (max-width: 1000px) { .start { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 720px) {
   .shell { display: block; }
   nav { width: auto; display: flex; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border); padding: 6px 8px; }
   nav a { white-space: nowrap; border-left: 0; border-bottom: 3px solid transparent; }
   nav a.active { border-bottom-color: var(--accent); }
   main { padding: 16px; }
+  .start, .pics { grid-template-columns: 1fr; }
   .row { flex-wrap: wrap; }
 }
 </style>
 </head>
 <body>
-<header><b>DataSecure</b><span>v0.1 · by Sarvesh Singh · runs only on this Mac</span></header>
+<header><b>DataSecure</b><svg class="ribbon" viewBox="0 0 32 26" aria-hidden="true"><path d="M15 13 L9.5 23.5 L12.6 22.6 L14.6 25 L16 13.5 Z M17 13 L22.5 23.5 L19.4 22.6 L17.4 25 L16 13.5 Z" fill="#db2777"/><path d="M16 11 C10.5 2.5 2 2.5 2.6 9.8 C3.2 16 10.5 15.2 16 12.4 Z M16 11 C21.5 2.5 30 2.5 29.4 9.8 C28.8 16 21.5 15.2 16 12.4 Z" fill="#ec4899"/><path d="M14 11.2 C10.5 7 6.5 6.6 6.2 9.6 C6 12 9.5 12.6 14 11.8 Z M18 11.2 C21.5 7 25.5 6.6 25.8 9.6 C26 12 22.5 12.6 18 11.8 Z" fill="#be185d" opacity=".45"/><rect x="13.3" y="8.6" width="5.4" height="6.2" rx="2.2" fill="#be185d"/></svg><span>v0.1 · by Sarvesh Singh · runs only on this Mac</span></header>
 <div class="shell">
 <nav>
   <a href="#overview">Overview</a>
@@ -109,8 +124,20 @@ code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; background:
 
 <!-- ============================== OVERVIEW -->
 <section data-page="overview">
-  <h1>Your protection</h1>
-  <p class="lead">A checkup of this Mac. Green is good. For anything red, click <b>Fix it</b> and follow the steps.</p>
+<div class="card welcome">
+  <div>
+    <h1>Hi, welcome to DataSecure <svg class="ribbon" viewBox="0 0 32 26" aria-hidden="true"><path d="M15 13 L9.5 23.5 L12.6 22.6 L14.6 25 L16 13.5 Z M17 13 L22.5 23.5 L19.4 22.6 L17.4 25 L16 13.5 Z" fill="#db2777"/><path d="M16 11 C10.5 2.5 2 2.5 2.6 9.8 C3.2 16 10.5 15.2 16 12.4 Z M16 11 C21.5 2.5 30 2.5 29.4 9.8 C28.8 16 21.5 15.2 16 12.4 Z" fill="#ec4899"/><path d="M14 11.2 C10.5 7 6.5 6.6 6.2 9.6 C6 12 9.5 12.6 14 11.8 Z M18 11.2 C21.5 7 25.5 6.6 25.8 9.6 C26 12 22.5 12.6 18 11.8 Z" fill="#be185d" opacity=".45"/><rect x="13.3" y="8.6" width="5.4" height="6.2" rx="2.2" fill="#be185d"/></svg></h1>
+    <p style="margin:0">Your own little safety kit. Four steps, about 25 minutes in total, and you're a lot safer online. Take them one at a time, there's no rush.</p>
+  </div>
+</div>
+<div class="start">
+  <div class="card"><div class="num"><span>1</span>Fix anything red<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="3"/></svg></div><p>Go through the checkup below. Each red line has its own steps.</p><span class="small muted">Just below ↓</span></div>
+    <div class="card"><div class="num"><span>2</span>Turn on your shield<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><p>Hide your browsing from the wifi and block trackers and scams.</p><a class="btn" href="#shield">Start, 2 min</a></div>
+    <div class="card"><div class="num"><span>3</span>Check your passwords<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/></svg></div><p>See if a password leaked and get alerts the moment one does.</p><a class="btn" href="#leaks">Start, 5 min</a></div>
+    <div class="card"><div class="num"><span>4</span>Become invisible<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 6.1A10 10 0 0 1 12 6c5 0 9 6 9 6a17 17 0 0 1-3 3.5M6.6 6.6C4.3 8.2 3 12 3 12s4 6 9 6a9 9 0 0 0 4.4-1.1"/></svg></div><p>Switch off ad tracking and ask data brokers to delete you.</p><a class="btn" href="#invisible">Start, 15 min</a></div>
+</div>
+<h2>Your checkup</h2>
+<p class="lead">Green is good. For anything red, click <b>Fix it</b> and follow the steps.</p>
   <div class="card">
     <div class="score"><strong id="score">–</strong><span class="muted" id="score-text">Checking your Mac…</span></div>
     <div class="bar"><div id="score-bar" style="width:0"></div></div>
@@ -139,6 +166,7 @@ code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; background:
       <li>Click <b>Install</b> and type your Mac password. macOS will say <b>"Unverified"</b>. That's normal: it means the file was made on your own Mac instead of bought from a company.</li>
       <li>Come back here and click <b>Test my shield</b>. It should turn green.</li>
     </ol>
+    <div class="pics"><img src="/docs/shield-1-settings.svg" alt="System Settings, General, Device Management: double-click DataSecure Private Shield"><img src="/docs/shield-2-install.svg" alt="Click Install. Unverified is normal. Type your Mac password."></div>
     <div class="inline" style="margin-top:14px">
       <button class="primary" onclick="installShield(this)">Create my shield</button>
       <button onclick="testShield()">Test my shield</button>

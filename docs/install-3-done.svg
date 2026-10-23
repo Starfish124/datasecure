@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" font-family="-apple-system, 'Segoe UI', system-ui, sans-serif" role="img" aria-label="Step 3: wait for Done, DataSecure opens in your browser">
+  <rect width="640" height="360" rx="18" fill="#fdf2f6"/>
+  <circle cx="40" cy="40" r="20" fill="#c2185b"/><text x="40" y="47" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <text x="72" y="47" font-size="18" font-weight="600" fill="#4a1f33">Wait for “Done”: your page opens by itself</text>
+  <rect x="36" y="84" width="260" height="190" rx="12" fill="#1f1f1f"/>
+  <path d="M36 96 a12 12 0 0 1 12 -12 h236 a12 12 0 0 1 12 12 v18 h-260 z" fill="#333"/>
+  <circle cx="56" cy="99" r="5" fill="#ff5f57"/><circle cx="72" cy="99" r="5" fill="#febc2e"/><circle cx="88" cy="99" r="5" fill="#28c840"/>
+  <g font-family="Menlo, ui-monospace, monospace" font-size="13">
+    <text x="52" y="146" fill="#bbb">Installing DataSecure…</text>
+    <text x="52" y="182" fill="#86efac">Done. DataSecure is open</text>
+    <text x="52" y="202" fill="#86efac">in your browser.</text>
+  </g>
+  <path d="M308 180 H338" stroke="#c2185b" stroke-width="4" stroke-linecap="round"/><path d="M332 170 L344 180 L332 190" fill="none" stroke="#c2185b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="356" y="84" width="250" height="210" rx="12" fill="#fff" stroke="#f0c6d8" stroke-width="2"/>
+  <path d="M357 96 a11 11 0 0 1 11 -11 h226 a11 11 0 0 1 11 11 v20 h-248 z" fill="#f6e6ed"/>
+  <circle cx="374" cy="100" r="5" fill="#ff5f57"/><circle cx="390" cy="100" r="5" fill="#febc2e"/><circle cx="406" cy="100" r="5" fill="#28c840"/>
+  <rect x="420" y="92" width="170" height="17" rx="8" fill="#fff"/><text x="505" y="105" font-size="11" fill="#7a4a60" text-anchor="middle">127.0.0.1:7777</text>
+  <text x="372" y="140" font-size="15" font-weight="700" fill="#2b1520">DataSecure</text>
+  <g transform="translate(463 128) scale(0.62)"><path d="M16 11 C10.5 2.5 2 2.5 2.6 9.8 C3.2 16 10.5 15.2 16 12.4 Z M16 11 C21.5 2.5 30 2.5 29.4 9.8 C28.8 16 21.5 15.2 16 12.4 Z" fill="#ec4899"/><path d="M15 13 L9.5 23.5 L12.6 22.6 L14.6 25 L16 13.5 Z M17 13 L22.5 23.5 L19.4 22.6 L17.4 25 L16 13.5 Z" fill="#db2777"/><rect x="13.3" y="8.6" width="5.4" height="6.2" rx="2.2" fill="#be185d"/></g>
+  <text x="372" y="176" font-size="26" font-weight="700" fill="#2b1520">5 of 7</text>
+  <rect x="372" y="186" width="218" height="6" rx="3" fill="#f6e6ed"/><rect x="372" y="186" width="156" height="6" rx="3" fill="#c2185b"/>
+  <g font-size="12" fill="#4a1f33">
+    <circle cx="380" cy="214" r="7" fill="#e7f6e7" stroke="#0e700e"/><path d="M376.5 214 l2.5 2.5 l4.5 -5" stroke="#0e700e" stroke-width="1.8" fill="none"/><text x="394" y="218">Disk encryption</text>
+    <circle cx="380" cy="240" r="7" fill="#e7f6e7" stroke="#0e700e"/><path d="M376.5 240 l2.5 2.5 l4.5 -5" stroke="#0e700e" stroke-width="1.8" fill="none"/><text x="394" y="244">Firewall</text>
+    <circle cx="380" cy="266" r="7" fill="#fdecee" stroke="#b10e1c"/><path d="M377 263 l6 6 M383 263 l-6 6" stroke="#b10e1c" stroke-width="1.8"/><text x="394" y="270">Private Shield</text>
+    <rect x="532" y="256" width="58" height="22" rx="6" fill="#c2185b"/><text x="561" y="271" fill="#fff" font-weight="600" text-anchor="middle">Fix it</text>
+  </g>
+  <text x="320" y="334" font-size="15" fill="#7a4a60" text-anchor="middle">You can close Terminal now. You never need it again.</text>
+</svg>

@@ -35,12 +35,12 @@ fi
 [ -x /usr/bin/ruby ] || { say "This Mac has no built-in Ruby, which DataSecure needs. Please tell Sarvesh."; exit 1; }
 
 say "Installing DataSecure…"
-mkdir -p "$DEST" "$AGENTS"
+mkdir -p "$DEST/docs" "$AGENTS"
 
 # Run from a downloaded copy of the repo? Use those files. Otherwise fetch the pinned release.
 HERE=""
 [ -f "${BASH_SOURCE[0]:-}" ] && HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # empty when piped from curl
-for f in datasecure.rb index.html install.sh; do
+for f in datasecure.rb index.html install.sh docs/ribbon.svg docs/shield-1-settings.svg docs/shield-2-install.svg; do
   if [ -n "$HERE" ] && [ -f "$HERE/$f" ] && [ "$HERE" != "$DEST" ]; then
     cp "$HERE/$f" "$DEST/$f"
   else

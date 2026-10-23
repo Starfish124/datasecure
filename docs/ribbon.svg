@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 26" role="img" aria-label="pink ribbon">
+  <path d="M15 13 L9.5 23.5 L12.6 22.6 L14.6 25 L16 13.5 Z" fill="#db2777"/>
+  <path d="M17 13 L22.5 23.5 L19.4 22.6 L17.4 25 L16 13.5 Z" fill="#db2777"/>
+  <path d="M16 11 C10.5 2.5 2 2.5 2.6 9.8 C3.2 16 10.5 15.2 16 12.4 Z" fill="#ec4899"/>
+  <path d="M16 11 C21.5 2.5 30 2.5 29.4 9.8 C28.8 16 21.5 15.2 16 12.4 Z" fill="#ec4899"/>
+  <path d="M14 11.2 C10.5 7 6.5 6.6 6.2 9.6 C6 12 9.5 12.6 14 11.8 Z" fill="#be185d" opacity=".45"/>
+  <path d="M18 11.2 C21.5 7 25.5 6.6 25.8 9.6 C26 12 22.5 12.6 18 11.8 Z" fill="#be185d" opacity=".45"/>
+  <rect x="13.3" y="8.6" width="5.4" height="6.2" rx="2.2" fill="#be185d"/>
+</svg>

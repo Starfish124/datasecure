@@ -24,6 +24,8 @@ for _ in $(seq 1 20); do curl -fs -o /dev/null "$URL/" && break; sleep 0.3; done
 post() { curl -s -H "Origin: $URL" -H 'Content-Type: application/json' -d "$2" "$URL$1"; }
 
 check "page loads" '[ "$(curl -s -o /dev/null -w "%{http_code}" "$URL/")" = 200 ]'
+check "tutorial pictures load" '[ "$(curl -s -o /dev/null -w "%{http_code} %{content_type}" "$URL/docs/shield-1-settings.svg")" = "200 image/svg+xml" ]'
+check "no files outside docs/ can be read" '[ "$(curl -s -o /dev/null -w "%{http_code}" --path-as-is "$URL/docs/../datasecure.rb")" = 404 ]'
 check "every check answers ok, bad or unknown" \
   'curl -s "$URL/api/checks" | /usr/bin/ruby -rjson -e "c = JSON.parse(STDIN.read); exit(c.size == 7 && c.all? { |x| %w[ok bad unknown].include?(x[%q(status)]) } ? 0 : 1)"'
 check "a foreign website is blocked (DNS rebinding)" \

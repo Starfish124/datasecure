@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" font-family="-apple-system, 'Segoe UI', system-ui, sans-serif" role="img" aria-label="Step 2: paste the install line into Terminal and press return">
+  <rect width="640" height="360" rx="18" fill="#fdf2f6"/>
+  <circle cx="40" cy="40" r="20" fill="#c2185b"/><text x="40" y="47" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text x="72" y="47" font-size="18" font-weight="600" fill="#4a1f33">Paste the line and press return</text>
+  <rect x="60" y="76" width="520" height="190" rx="12" fill="#1f1f1f"/>
+  <path d="M60 88 a12 12 0 0 1 12 -12 h496 a12 12 0 0 1 12 12 v20 h-520 z" fill="#333"/>
+  <circle cx="82" cy="92" r="6" fill="#ff5f57"/><circle cx="102" cy="92" r="6" fill="#febc2e"/><circle cx="122" cy="92" r="6" fill="#28c840"/>
+  <text x="320" y="97" font-size="13" fill="#bbb" text-anchor="middle">Terminal</text>
+  <rect x="76" y="128" width="488" height="58" rx="6" fill="#c2185b" opacity=".35"/>
+  <g font-family="Menlo, ui-monospace, monospace" font-size="14" fill="#fff">
+    <text x="84" y="150"><tspan fill="#f9a8d4">~ %</tspan> curl -fsSL https://raw.githubusercontent.com/</text>
+    <text x="84" y="174">Starfish124/datasecure/v0.1.0/install.sh | bash</text>
+  </g>
+  <rect x="491" y="160" width="9" height="18" fill="#f9a8d4"/>
+  <text x="84" y="226" font-size="13" fill="#9a9a9a">Copy the line from the instructions, click in this window,</text>
+  <text x="84" y="246" font-size="13" fill="#9a9a9a">press ⌘ command + V to paste.</text>
+  <rect x="150" y="284" width="140" height="50" rx="12" fill="#fff" stroke="#e6b3c9" stroke-width="2"/>
+  <text x="220" y="316" font-size="18" font-weight="600" fill="#4a1f33" text-anchor="middle">⌘ + V</text>
+  <text x="320" y="318" font-size="24" font-weight="700" fill="#c2185b" text-anchor="middle">→</text>
+  <rect x="350" y="284" width="140" height="50" rx="12" fill="#c2185b"/>
+  <text x="420" y="316" font-size="18" font-weight="600" fill="#fff" text-anchor="middle">return ⏎</text>
+</svg>

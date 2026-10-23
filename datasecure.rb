@@ -359,6 +359,13 @@ def serve
     res.body = File.read(File.join(APP, 'index.html'))
   end
 
+route.call('/docs') do |req, res|
+    file = File.join(APP, 'docs', File.basename(req.path)) # basename: no ../ escapes
+    next json(res, { error: 'not found' }, 404) unless file.end_with?('.svg') && File.file?(file)
+    res['Content-Type'] = 'image/svg+xml'
+    res.body = File.read(file)
+  end
+
   route.call('/api/checks') { |_, res| json(res, run_checks) }
 
   route.call('/api/open') do |req, res|
