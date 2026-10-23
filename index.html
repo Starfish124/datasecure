@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataSecure</title>
+<style>
+:root {
+  --bg: #f5f5f5; --card: #ffffff; --text: #242424; --muted: #616161; --border: #e0e0e0;
+  --accent: #0f6cbd; --accent-hover: #115ea3; --accent-bg: #ebf3fc;
+  --ok: #0e700e; --ok-bg: #f1faf1; --bad: #b10e1c; --bad-bg: #fdf3f4;
+  --warn: #8a3707; --warn-bg: #fff9f5; --unk: #616161; --unk-bg: #f0f0f0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1f1f; --card: #292929; --text: #ffffff; --muted: #adadad; --border: #3d3d3d;
+    --accent: #479ef5; --accent-hover: #62abf5; --accent-bg: #082338;
+    --ok: #54b054; --ok-bg: #052505; --bad: #dc626d; --bad-bg: #3b0509; --warn: #faa06b; --warn-bg: #2e2410;
+    --unk: #adadad; --unk-bg: #333333;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1f1f; --card: #292929; --text: #ffffff; --muted: #adadad; --border: #3d3d3d;
+  --accent: #479ef5; --accent-hover: #62abf5; --accent-bg: #082338;
+  --ok: #54b054; --ok-bg: #052505; --bad: #dc626d; --bad-bg: #3b0509; --warn: #faa06b; --warn-bg: #2e2410;
+  --unk: #adadad; --unk-bg: #333333;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 "Segoe UI Variable", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+header { height: 48px; display: flex; align-items: center; gap: 12px; padding: 0 20px; background: var(--card); border-bottom: 1px solid var(--border); }
+header b { font-size: 16px; font-weight: 600; }
+header span { color: var(--muted); font-size: 12px; }
+.shell { display: flex; min-height: calc(100vh - 48px); }
+nav { width: 232px; flex: none; padding: 12px 8px; background: var(--card); border-right: 1px solid var(--border); }
+nav a { display: block; padding: 8px 12px; margin-bottom: 2px; border-radius: 4px; color: var(--text); text-decoration: none; border-left: 3px solid transparent; }
+nav a:hover { background: var(--bg); }
+nav a.active { background: var(--accent-bg); border-left-color: var(--accent); font-weight: 600; }
+main { flex: 1; padding: 24px 32px 48px; max-width: 980px; }
+section { display: none; }
+section.active { display: block; }
+h1 { font-size: 24px; font-weight: 600; margin: 0 0 4px; }
+h2 { font-size: 16px; font-weight: 600; margin: 28px 0 8px; }
+.lead { color: var(--muted); margin: 0 0 20px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 16px 20px; margin-bottom: 12px; }
+.explain { background: var(--accent-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; padding: 12px 16px; margin-bottom: 20px; }
+.explain > b { display: block; margin-bottom: 4px; }
+.explain p { margin: 4px 0; }
+.row { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-top: 1px solid var(--border); }
+.row:first-child { border-top: 0; }
+.row .grow { flex: 1; min-width: 0; }
+.row .name { font-weight: 600; }
+.row .detail { color: var(--muted); }
+.icon { width: 24px; height: 24px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; margin-top: 1px; }
+.ok .icon { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok); }
+.bad .icon { background: var(--bad-bg); color: var(--bad); border: 1px solid var(--bad); }
+.unknown .icon { background: var(--unk-bg); color: var(--unk); border: 1px solid var(--unk); }
+ol.steps { margin: 8px 0 0; padding-left: 20px; }
+ol.steps li { margin: 2px 0; }
+button, .btn { font: inherit; font-weight: 600; padding: 5px 14px; min-height: 32px; border-radius: 4px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; white-space: nowrap; }
+button:hover, .btn:hover { background: var(--bg); }
+button.primary, .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.primary:hover, .btn.primary:hover { background: var(--accent-hover); }
+button:disabled { opacity: .5; cursor: default; }
+input[type=text], input[type=email], input[type=password] { font: inherit; padding: 5px 10px; min-height: 32px; border: 1px solid var(--border); border-bottom-color: var(--muted); border-radius: 4px; background: var(--card); color: var(--text); width: 100%; max-width: 360px; }
+input:focus { outline: none; border-bottom: 2px solid var(--accent); }
+.inline { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.score { display: flex; align-items: baseline; gap: 10px; }
+.score strong { font-size: 40px; font-weight: 600; }
+.bar { height: 6px; background: var(--unk-bg); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+.bar div { height: 100%; background: var(--accent); }
+.msg { margin-top: 10px; padding: 10px 14px; border-radius: 4px; border: 1px solid; }
+.msg.ok { color: var(--ok); background: var(--ok-bg); border-color: var(--ok); }
+.msg.bad { color: var(--bad); background: var(--bad-bg); border-color: var(--bad); }
+.msg.warn { color: var(--warn); background: var(--warn-bg); border-color: var(--warn); }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 12px; }
+tr.warn td { background: var(--warn-bg); }
+tr.warn td:first-child { box-shadow: inset 3px 0 var(--warn); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px 16px; }
+label.check { display: flex; gap: 8px; align-items: center; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; background: var(--unk-bg); padding: 2px 6px; border-radius: 3px; word-break: break-all; }
+@media (max-width: 720px) {
+  .shell { display: block; }
+  nav { width: auto; display: flex; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  nav a { white-space: nowrap; border-left: 0; border-bottom: 3px solid transparent; }
+  nav a.active { border-bottom-color: var(--accent); }
+  main { padding: 16px; }
+  .row { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+<header><b>DataSecure</b><span>v0.1 · by Sarvesh Singh · runs only on this Mac</span></header>
+<div class="shell">
+<nav>
+  <a href="#overview">Overview</a>
+  <a href="#shield">Private Shield</a>
+  <a href="#leaks">Leaked passwords</a>
+  <a href="#flow">Where my data goes</a>
+  <a href="#invisible">Stay invisible</a>
+  <a href="#browser">Clear browser data</a>
+  <a href="#help">How it works</a>
+</nav>
+<main>
+
+<!-- ============================== OVERVIEW -->
+<section data-page="overview">
+  <h1>Your protection</h1>
+  <p class="lead">A checkup of this Mac. Green is good. For anything red, click <b>Fix it</b> and follow the steps.</p>
+  <div class="card">
+    <div class="score"><strong id="score">–</strong><span class="muted" id="score-text">Checking your Mac…</span></div>
+    <div class="bar"><div id="score-bar" style="width:0"></div></div>
+  </div>
+  <div class="card" id="checks"></div>
+  <div class="inline"><button onclick="loadChecks()">Check again</button><span class="muted small">Changed a setting? Click this to see it turn green.</span></div>
+</section>
+
+<!-- ============================== SHIELD -->
+<section data-page="shield">
+  <h1>Private Shield</h1>
+  <p class="lead">Hides the websites you visit from the wifi you're on, and blocks trackers, ads and scam sites.</p>
+  <div class="explain">
+    <b>How this works</b>
+    <p>Before your Mac opens any website, it first asks "where does mybank.nl live?". Normally that question goes out in plain text, so whoever runs the wifi (a café, a hotel, your internet provider) can read a list of every site you visit, and a scammer on the same wifi can send you a fake answer.</p>
+    <p>The shield sends that question <b>encrypted</b> to Mullvad, a Swedish privacy company that keeps no logs. Mullvad also refuses to answer for known trackers, ad networks and scam sites, so they simply never load.</p>
+    <p>It is a setting inside macOS itself. Nothing extra runs on your Mac and nothing can crash. The file is made fresh on this Mac, just for you.</p>
+    <p class="small muted">Honest limits: it is not a VPN. Websites still see your internet address, and your provider can still see which servers you connect to, just not the names you look up.</p>
+  </div>
+  <div class="card">
+    <div id="shield-status" class="muted">Testing your shield…</div>
+    <h2>Turn it on (about 2 minutes)</h2>
+    <ol class="steps">
+      <li>Click <b>Create my shield</b>. System Settings opens on the <b>Device Management</b> page (on older Macs it's called <b>Profiles</b>).</li>
+      <li>Double-click <b>DataSecure Private Shield</b>.</li>
+      <li>Click <b>Install</b> and type your Mac password. macOS will say <b>"Unverified"</b>. That's normal: it means the file was made on your own Mac instead of bought from a company.</li>
+      <li>Come back here and click <b>Test my shield</b>. It should turn green.</li>
+    </ol>
+    <div class="inline" style="margin-top:14px">
+      <button class="primary" onclick="installShield(this)">Create my shield</button>
+      <button onclick="testShield()">Test my shield</button>
+    </div>
+    <h2>Turn it off</h2>
+    <p>Open <b>System Settings → General → Device Management</b>, click <b>DataSecure Private Shield</b>, then the <b>minus (−)</b> button. <button onclick="openSetting('profiles')">Open that page</button></p>
+    <p class="small muted">Café or hotel wifi login page won't appear? Turn the shield off, log in to the wifi, then create the shield again.</p>
+  </div>
+</section>
+
+<!-- ============================== LEAKS -->
+<section data-page="leaks">
+  <h1>Leaked passwords</h1>
+  <p class="lead">Companies get hacked every week. When yours does, change that password straight away, or delete the account.</p>
+
+  <h2>1. Is my password leaked?</h2>
+  <div class="explain">
+    <b>How this works</b>
+    <p>Your Mac turns the password into a scrambled fingerprint and sends only the <b>first 5 characters</b> of it to the leak database (Have I Been Pwned). The database sends back every leaked fingerprint starting with those 5 characters, hundreds of them, and your Mac compares them itself. <b>Your password never leaves this Mac</b>, not even to DataSecure.</p>
+  </div>
+  <div class="card">
+    <form class="inline" onsubmit="checkPassword(event)">
+      <input type="password" id="pw" placeholder="Type a password you use" autocomplete="off">
+      <button class="primary">Check</button>
+    </form>
+    <div id="pw-result"></div>
+  </div>
+
+  <h2>2. Get an email the moment your email address leaks</h2>
+  <div class="explain">
+    <b>How this works</b>
+    <p>Two free, trusted services watch every new hack and email you when your address shows up. Sign up for both, once. When an email from them arrives, change the password of that website, and anywhere you used the same password.</p>
+  </div>
+  <div class="card">
+    <div class="row"><div class="grow"><div class="name">Have I Been Pwned: Notify Me</div><div class="detail">Type your email, click the link they email you. Done.</div></div><a class="btn primary" href="https://haveibeenpwned.com/NotifyMe" target="_blank" rel="noopener">Sign up</a></div>
+    <div class="row"><div class="grow"><div class="name">Mozilla Monitor</div><div class="detail">From the makers of Firefox. Also shows where you have leaked before.</div></div><a class="btn primary" href="https://monitor.mozilla.org/" target="_blank" rel="noopener">Sign up</a></div>
+    <div class="row"><div class="grow"><div class="name">Check my email right now</div><div class="detail">See every past hack your email address was part of.</div></div><a class="btn" href="https://haveibeenpwned.com/" target="_blank" rel="noopener">Check</a></div>
+  </div>
+
+  <h2>3. Watch the websites you use</h2>
+  <div class="explain">
+    <b>How this works</b>
+    <p>Tick the websites you have an account with. Once a day DataSecure downloads the public list of new hacks. If one of your websites is on it, a notification pops up on your Mac telling you to change that password.</p>
+  </div>
+  <div class="card">
+    <div class="grid" id="svc-grid"></div>
+    <form class="inline" style="margin-top:12px" onsubmit="addService(event)">
+      <input type="text" id="svc-add" placeholder="Add another website, e.g. hema.nl" list="svc-known">
+      <datalist id="svc-known"></datalist>
+      <button>Add</button>
+    </form>
+    <div class="inline" style="margin-top:12px">
+      <button class="primary" onclick="saveServices(this)">Save my websites</button>
+      <button onclick="testNotification()">Send a test notification</button>
+    </div>
+    <p class="small muted">No test notification? Open <b>System Settings → Notifications → Script Editor</b> and turn on <b>Allow notifications</b>. (macOS shows DataSecure alerts under that name.)</p>
+    <div id="svc-breaches"></div>
+  </div>
+
+  <h2>4. Let your Mac warn you about leaked passwords</h2>
+  <div class="card">
+    <ol class="steps">
+      <li>Click <b>Open Passwords</b>.</li>
+      <li>In the menu bar choose <b>Passwords → Settings</b>.</li>
+      <li>Tick <b>Detect Compromised Passwords</b>. Leaked ones now show under <b>Security</b> in the sidebar. Change each one.</li>
+    </ol>
+    <p style="margin-top:12px"><button onclick="openApp('passwords')">Open Passwords</button></p>
+  </div>
+</section>
+
+<!-- ============================== FLOW -->
+<section data-page="flow">
+  <h1>Where my data goes</h1>
+  <p class="lead">Right now, live: which app on this Mac talks to which company, and in which country.</p>
+  <div class="explain">
+    <b>How this works</b>
+    <p>Every app talks to servers on the internet. DataSecure asks macOS which connections are open and looks up who owns each server in a table <b>stored on your Mac</b>, so nothing about your connections is sent anywhere.</p>
+    <p><b>Yellow rows</b> are companies DataSecure doesn't recognise. Usually that's fine, for example a website you have open. Don't recognise the <b>app</b>? Search its name online, or ask someone you trust.</p>
+    <p class="small muted">Good to know: big hosting firms (Amazon, Cloudflare, Akamai, Google) run servers for thousands of other companies, so "Amazon" often means "a website hosted at Amazon". The country is where the company is registered, not always where the server stands. Apps from macOS itself are only partly shown.</p>
+  </div>
+  <div class="card">
+    <div class="inline" style="justify-content:space-between"><span id="flow-summary" class="muted">Loading…</span><span class="small muted">Updates every 5 seconds</span></div>
+    <div style="overflow-x:auto"><table><thead><tr><th>App</th><th>Company</th><th>Country</th><th>Connections</th></tr></thead><tbody id="flow-rows"></tbody></table></div>
+  </div>
+</section>
+
+<!-- ============================== INVISIBLE -->
+<section data-page="invisible">
+  <h1>Stay invisible</h1>
+  <p class="lead">Get out of advertising profiles, people-search results and data-broker databases.</p>
+
+  <h2>1. Switch off ad tracking (about 15 minutes, once)</h2>
+  <div class="explain">
+    <b>How this works</b>
+    <p>Google, Meta, LinkedIn, Microsoft and Apple build a profile of you to sell targeted ads. Each has a settings page where you can turn that off. Click each link, sign in, switch everything off, then tick it here so you remember.</p>
+  </div>
+  <div class="card" id="optouts"></div>
+
+  <h2>2. Ask data brokers to delete you</h2>
+  <div class="explain">
+    <b>How this works</b>
+    <p>Data brokers collect and sell information about people: what you buy, where you live, what you might like. In the EU the law (GDPR, article 17) says they <b>must delete your data</b> when you ask, within one month.</p>
+    <p>Type your name and email below. DataSecure writes the legal letter for you. For each company, click <b>Email letter</b> (your mail app opens with everything filled in, you press Send), or <b>Copy letter</b> and paste it into their form. DataSecure never sends anything and doesn't store your name.</p>
+  </div>
+  <div class="card">
+    <div class="inline">
+      <input type="text" id="gdpr-name" placeholder="Your full name" autocomplete="name">
+      <input type="email" id="gdpr-email" placeholder="Your email address" autocomplete="email">
+    </div>
+    <p class="small muted">Some companies reply asking you to prove who you are. If they ask for a copy of your ID, use the free KopieID app from the Dutch government to black out your photo and BSN first.</p>
+    <div id="brokers"></div>
+  </div>
+</section>
+
+<!-- ============================== BROWSER -->
+<section data-page="browser">
+  <h1>Clear browser data</h1>
+  <p class="lead">Wipe your history, cookies and cache. Do it after banking on a shared computer, or once a month.</p>
+  <div class="explain">
+    <b>How this works</b>
+    <p>Websites leave three things on your Mac: <b>history</b> (a list of every page you visited), <b>cookies</b> (small files that keep you logged in, and let advertisers recognise you across sites) and <b>cache</b> (copies of pages, including pages from your bank). Clearing them makes you a stranger to trackers again.</p>
+    <p>You will be logged out of websites afterwards, so make sure you know your passwords first. Your saved passwords are <b>not</b> deleted.</p>
+  </div>
+  <div class="card">
+    <div class="row"><div class="grow"><div class="name">Safari</div>
+      <ol class="steps"><li>Click <b>Open Safari</b>.</li><li>In the menu bar choose <b>History → Clear History…</b></li><li>Choose <b>all history</b> and click <b>Clear History</b>. This also removes cookies and cache.</li></ol></div>
+      <button onclick="openApp('safari')">Open Safari</button></div>
+    <div class="row"><div class="grow"><div class="name">Google Chrome</div>
+      <ol class="steps"><li>Click <b>Open Chrome</b>.</li><li>Press <b>⌘ Command + Shift + Delete</b> together.</li><li>Set <b>Time range</b> to <b>All time</b>, tick all three boxes, click <b>Delete data</b>.</li></ol></div>
+      <button onclick="openApp('chrome')">Open Chrome</button></div>
+    <div class="row"><div class="grow"><div class="name">Firefox</div>
+      <ol class="steps"><li>Click <b>Open Firefox</b>.</li><li>Press <b>⌘ Command + Shift + Delete</b> together.</li><li>Choose <b>Everything</b>, tick all boxes, click <b>Clear</b>.</li></ol></div>
+      <button onclick="openApp('firefox')">Open Firefox</button></div>
+  </div>
+</section>
+
+<!-- ============================== HELP -->
+<section data-page="help">
+  <h1>How DataSecure works</h1>
+  <p class="lead">In plain words: what it does, what it never does, and how to remove it.</p>
+  <div class="card">
+    <h2 style="margin-top:0">What it is</h2>
+    <p>DataSecure is a small program that runs only on this Mac. This page is not on the internet: the address <code>127.0.0.1:7777</code> means "this computer". Bookmark it (<b>⌘ Command + D</b>) to come back any time.</p>
+    <p>It <b>checks</b> your Mac's safety settings and <b>shows you how to fix them</b>. It never changes a setting behind your back: every fix is you clicking a switch in System Settings, and it never asks for your Mac password.</p>
+    <h2>What leaves your Mac (and nothing else)</h2>
+    <ul>
+      <li>The first 5 characters of a password's scrambled fingerprint, when you check a password. Never the password.</li>
+      <li>A daily download of the public list of hacked companies (from haveibeenpwned.com). Nothing about you is sent.</li>
+      <li>A monthly download of the public table of who owns which server (from iptoasn.com). Nothing about you is sent.</li>
+      <li>If you turn on the shield: your website lookups, encrypted, to Mullvad, which keeps no logs.</li>
+    </ul>
+    <h2>Words you'll see</h2>
+    <ul>
+      <li><b>FileVault</b>: locks everything on your disk with your password. A thief who takes the Mac can't read your files or banking documents.</li>
+      <li><b>Firewall</b>: a door that stops other computers on the same wifi from connecting to yours.</li>
+      <li><b>Data breach / leak</b>: a company got hacked and its customers' emails and passwords were stolen.</li>
+      <li><b>Data broker</b>: a company that collects information about people and sells it.</li>
+    </ul>
+    <h2>The 3 habits that matter most</h2>
+    <ol>
+      <li>A different password for every website. The Passwords app on your Mac remembers them for you.</li>
+      <li>Turn on two-step login (a code on your phone) for email and banking.</li>
+      <li>Your bank will never ask for your password or codes by phone, text or email. Hang up and call the number on your bank card.</li>
+    </ol>
+    <h2>Remove DataSecure</h2>
+    <p>Open the <b>Terminal</b> app, paste this line and press Enter:</p>
+    <p><code>curl -fsSL https://raw.githubusercontent.com/Starfish124/datasecure/v0.1.0/install.sh | bash -s -- --uninstall</code></p>
+    <p>Then remove the shield as shown on the Private Shield page.</p>
+    <p class="small muted" style="margin-top:20px">DataSecure v0.1 by Sarvesh Singh · free and open source (MIT License) · github.com/Starfish124/datasecure</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+function el(tag, attrs, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === 'class') n.className = v; else if (k.startsWith('on')) n[k] = v; else n.setAttribute(k, v);
+  }
+  for (const k of kids) if (k != null) n.append(k);
+  return n;
+}
+async function api(path, data) {
+  const opts = data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) };
+  const res = await fetch(path, opts);
+  return res.json();
+}
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+const openSetting = (id) => api('/api/open', { id });
+const openApp = (id) => api('/api/open-app', { id });
+
+// ---------- navigation
+let flowTimer = null;
+function route() {
+  const id = (location.hash || '#overview').slice(1);
+  document.querySelectorAll('section').forEach(s => s.classList.toggle("active", s.dataset.page === id));
+  document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.hash === '#' + id));
+  clearInterval(flowTimer);
+  window.scrollTo(0, 0);
+  if (id === 'overview') loadChecks();
+  if (id === 'shield') testShield();
+  if (id === 'leaks') loadServices();
+  if (id === 'flow') { loadFlow(); flowTimer = setInterval(loadFlow, 5000); }
+}
+window.addEventListener('hashchange', route);
+
+// ---------- overview
+const FIX = {
+  shield: ['Click Fix it to go to the Private Shield page.', 'Follow the 4 steps there.'],
+  filevault: ['Click Fix it. System Settings opens.', 'Next to FileVault, click Turn On.', 'Choose to unlock with your iCloud account, or write the recovery key on paper and keep it somewhere safe (not on this Mac). Encryption runs in the background, you can keep working.'],
+  firewall: ['Click Fix it. System Settings opens.', 'Switch Firewall on.', 'That\'s it, nothing else changes for you.'],
+  updates: ['Click Fix it. System Settings opens.', 'Click the (i) next to Automatic updates.', 'Turn on every switch, then click Done.'],
+  lock: ['Click Fix it. System Settings opens.', 'Set "Require password after screen saver begins or display is turned off" to Immediately.', 'Close System Settings.'],
+  findmy: ['Click Fix it. Your Apple Account settings open.', 'Click iCloud, then Find My Mac (it may be under "See All").', 'Turn it on. If your Mac is ever stolen, you can lock or wipe it from icloud.com/find.'],
+  ads: ['Click Fix it. System Settings opens.', 'Turn off Personalised Ads.', 'Done.']
+};
+async function loadChecks() {
+  const checks = await api('/api/checks');
+  const box = $('checks'); box.replaceChildren();
+  const ok = checks.filter(c => c.status === 'ok').length;
+  $('score').textContent = `${ok} of ${checks.length}`;
+  $('score-text').textContent = ok === checks.length ? 'protections on. Your Mac is in good shape.' : 'protections on. Fix the red ones below.';
+  $('score-bar').style.width = (100 * ok / checks.length) + '%';
+  for (const c of checks) {
+    const symbol = { ok: '✓', bad: '✕', unknown: '?' }[c.status];
+    const goFix = () => c.id === 'shield' ? (location.hash = '#shield') : openSetting(c.id === 'findmy' ? 'findmy' : c.id);
+    const steps = c.status === 'ok' ? null : el('ol', { class: 'steps' }, ...(c.status === 'unknown'
+      ? ['We couldn\'t read this setting. Click Check it and look for yourself.'] : FIX[c.id]).map(s => el('li', {}, s)));
+    box.append(el('div', { class: 'row ' + c.status },
+      el('div', { class: 'icon' }, symbol),
+      el('div', { class: 'grow' }, el('div', { class: 'name' }, c.name), el('div', { class: 'detail' }, c.detail), steps),
+      c.status === 'ok' ? null : el('button', { class: c.status === 'bad' ? 'primary' : '', onclick: goFix }, c.status === 'bad' ? 'Fix it' : 'Check it')));
+  }
+}
+
+// ---------- shield
+async function testShield() {
+  $('shield-status').textContent = 'Testing your shield…';
+  const c = (await api('/api/checks')).find(x => x.id === 'shield');
+  $('shield-status').replaceChildren(el('div', { class: 'msg ' + (c.status === 'ok' ? 'ok' : c.status === 'bad' ? 'bad' : 'warn') },
+    c.status === 'ok' ? 'Shield is ON. ' + c.detail : c.status === 'bad' ? 'Shield is OFF. ' + c.detail : c.detail));
+}
+async function installShield(btn) {
+  btn.disabled = true;
+  await api('/api/shield/install', {});
+  btn.disabled = false;
+  btn.textContent = 'Create my shield again';
+}
+
+// ---------- leaks
+async function checkPassword(e) {
+  e.preventDefault();
+  const pw = $('pw').value, out = $('pw-result');
+  if (!pw) return;
+  const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-1', new TextEncoder().encode(pw))))
+    .map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+  $('pw').value = '';
+  out.replaceChildren(el('div', { class: 'msg warn' }, 'Checking…'));
+  const r = await api('/api/password-range', { prefix: hash.slice(0, 5) });
+  if (r.error) return out.replaceChildren(el('div', { class: 'msg warn' }, r.error));
+  const hit = r.range.split('\n').map(l => l.trim().split(':')).find(([s, n]) => s === hash.slice(5) && +n > 0);
+  out.replaceChildren(hit
+    ? el('div', { class: 'msg bad' }, `This password has appeared in ${(+hit[1]).toLocaleString()} leaks. Criminals try it first. Stop using it today, everywhere you use it.`)
+    : el('div', { class: 'msg ok' }, 'Not found in any known leak. Good. Keep it unique: use it for one website only.'));
+}
+
+const COMMON = ['linkedin.com', 'facebook.com', 'instagram.com', 'adobe.com', 'dropbox.com', 'canva.com', 'twitter.com',
+  'spotify.com', 'netflix.com', 'tiktok.com', 'snapchat.com', 'deezer.com', 'bol.com', 'marktplaats.nl', 'booking.com',
+  'thuisbezorgd.nl', 'zalando.nl', 'coolblue.nl', 'myfitnesspal.com', 'ticketmaster.com'];
+let services = [];
+function renderServices() {
+  const all = [...new Set([...COMMON, ...services])];
+  $('svc-grid').replaceChildren(...all.map(d => el('label', { class: 'check' },
+    el('input', { type: 'checkbox', value: d, ...(services.includes(d) ? { checked: '' } : {}) }), d)));
+}
+async function loadServices(data) {
+  const r = data || await api('/api/services');
+  services = r.domains;
+  renderServices();
+  const box = $('svc-breaches');
+  if (!r.breaches.length) {
+    box.replaceChildren(el('p', { class: 'muted' }, services.length
+      ? `None of your ${services.length} websites appear in the ${r.known} known hacks. We'll tell you if that changes.`
+      : 'Tick the websites you use, then click Save.'));
+    return;
+  }
+  box.replaceChildren(el('h2', {}, 'Past hacks of your websites'),
+    el('p', { class: 'muted' }, 'Changed your password at these websites since the date shown? Then you\'re fine. If not, change it now.'),
+    el('table', {}, el('thead', {}, el('tr', {}, el('th', {}, 'Website'), el('th', {}, 'Hacked on'), el('th', {}, 'What was stolen'))),
+      el('tbody', {}, ...r.breaches.map(b => el('tr', {}, el('td', {}, b.Title), el('td', {}, b.BreachDate), el('td', {}, (b.DataClasses || []).join(', ')))))));
+}
+function addService(e) {
+  e.preventDefault();
+  const d = $('svc-add').value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+  if (d && !services.includes(d)) { services.push(d); renderServices(); }
+  $('svc-add').value = '';
+}
+async function saveServices(btn) {
+  const domains = [...document.querySelectorAll('#svc-grid input:checked')].map(i => i.value);
+  btn.disabled = true;
+  loadServices(await api('/api/services', { domains }));
+  btn.disabled = false;
+}
+const testNotification = () => api('/api/test-notification', {});
+
+// ---------- flow
+async function loadFlow() {
+  const r = await api('/api/connections');
+  const unknown = r.rows.filter(x => !x.known).length;
+  $('flow-summary').textContent = r.table
+    ? `${r.rows.length} app-to-company links right now · ${unknown} less common (yellow)`
+    : 'The company lookup table is still downloading. Company names will appear soon.';
+  const names = (() => { try { return new Intl.DisplayNames(['en'], { type: 'region' }); } catch { return null; } })();
+  const country = (c) => { try { return c && c !== 'None' && names ? names.of(c) : c || '–'; } catch { return c; } };
+  $('flow-rows').replaceChildren(...r.rows.map(x => el('tr', { class: x.known ? '' : 'warn' },
+    el('td', {}, x.app), el('td', {}, x.company), el('td', {}, country(x.country)), el('td', {}, String(x.connections)))));
+}
+
+// ---------- invisible
+const OPTOUTS = [
+  ['Google: remove your phone and address from search', 'Google "Results about you" finds your personal details in search results and asks for removal.', 'https://myactivity.google.com/results-about-you'],
+  ['Google: turn off personalised ads', 'In My Ad Center, switch Personalised ads off.', 'https://myadcenter.google.com/'],
+  ['Facebook and Instagram: ad settings', 'Under Ad preferences, limit how your activity is used for ads.', 'https://accountscenter.facebook.com/ad_preferences'],
+  ['LinkedIn: ad data', 'Switch off every option under Advertising data.', 'https://www.linkedin.com/mypreferences/d/categories/ads'],
+  ['Microsoft: ad settings', 'Switch off personalised ads.', 'https://account.microsoft.com/privacy/ad-settings'],
+  ['Your Online Choices (EU)', 'One page that turns off tracking ads from dozens of ad companies at once.', 'https://www.youronlinechoices.com/nl/']
+];
+function renderOptouts() {
+  const done = store.get('optouts', []);
+  $('optouts').replaceChildren(...OPTOUTS.map(([name, detail, url]) => el('div', { class: 'row' },
+    el('input', { type: 'checkbox', title: 'Done', style: 'margin-top:4px', ...(done.includes(url) ? { checked: '' } : {}),
+      onchange: (e) => store.set('optouts', e.target.checked ? [...done, url] : done.filter(u => u !== url)) }),
+    el('div', { class: 'grow' }, el('div', { class: 'name' }, name), el('div', { class: 'detail' }, detail)),
+    el('a', { class: 'btn', href: url, target: '_blank', rel: 'noopener' }, 'Open'))),
+    el('div', { class: 'row' }, el('div', { class: 'icon', style: 'border:1px solid var(--border)' }, ''),
+      el('div', { class: 'grow' }, el('div', { class: 'name' }, 'Apple: personalised ads'), el('div', { class: 'detail' }, 'DataSecure checks this one for you on the Overview page.'))));
+}
+// Contacts checked against each company's own privacy page, Oct 2026.
+const BROKERS = [
+  { name: 'Focum', what: 'Dutch credit and marketing data', email: 'dpo@focum.nl' },
+  { name: 'LiveRamp', what: 'Links your identity across websites for advertisers', email: 'privacy.nl@liveramp.com' },
+  { name: 'Criteo', what: 'The ads that follow you around after you look at a product', email: 'dpo@criteo.com' },
+  { name: 'Acxiom', what: 'One of the world\'s biggest marketing data brokers', form: 'https://omnicom-privacy.my.onetrust.com/webform/c0a325be-6f68-46be-a0de-e4a750890f7d/237d294b-49ff-4d3c-a728-f4839c8d081b' },
+  { name: 'Quantcast', what: 'Audience profiles for advertisers', form: 'https://data-access.quantserve.com/gdpr/' },
+  { name: 'The Trade Desk', what: 'Buys ads aimed at your profile', form: 'https://submit-irm.trustarc.com/services/validation/short/d9f1fb99/?brandId=9cbf55ca-6676-48dc-8e9f-ff1f056f80a5' },
+  { name: 'Lotame (Epsilon)', what: 'Collects browsing data to sell audiences', form: 'https://legal.epsilon.com/dsr/' },
+  { name: 'Equifax', what: 'Credit and identity data (choose "GDPR Data Subject Rights Request")', form: 'https://www.equifax.com/privacy/contactus/' }
+];
+function letter(company) {
+  const name = $('gdpr-name').value.trim() || '[your name]', email = $('gdpr-email').value.trim() || '[your email]';
+  return `Dear ${company} privacy team,
+
+Under Article 17 of the General Data Protection Regulation (GDPR), I request that you erase all personal data you hold about me, without undue delay.
+
+Under Article 21, I also object to any processing of my personal data for direct marketing, profiling or advertising, and ask you to stop it now.
+
+Please also tell every party you have shared my data with about this request (Article 19).
+
+My details, for finding my records:
+Name: ${name}
+Email: ${email}
+
+Please confirm in writing within one month (Article 12(3)) that my data has been erased.
+
+Kind regards,
+${name}`;
+}
+function renderBrokers() {
+  $('brokers').replaceChildren(...BROKERS.map(b => el('div', { class: 'row' },
+    el('div', { class: 'grow' }, el('div', { class: 'name' }, b.name), el('div', { class: 'detail' }, b.what)),
+    b.email
+      ? el('button', { class: 'primary', onclick: () => { location.href = `mailto:${b.email}?subject=${encodeURIComponent('GDPR erasure request (Article 17)')}&body=${encodeURIComponent(letter(b.name))}`; } }, 'Email letter')
+      : el('span', { class: 'inline' },
+          el('button', { onclick: async (e) => { try { await navigator.clipboard.writeText(letter(b.name)); e.target.textContent = 'Copied ✓'; } catch { e.target.textContent = 'Copy failed'; } } }, 'Copy letter'),
+          el('a', { class: 'btn primary', href: b.form, target: '_blank', rel: 'noopener' }, 'Open form')))));
+}
+
+renderOptouts();
+renderBrokers();
+route();
+</script>
+</body>
+</html>
