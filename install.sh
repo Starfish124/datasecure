@@ -16,6 +16,8 @@ say() { printf '\n  %s\n' "$1"; }
 stop_agents() {
   for job in server daily; do
     launchctl bootout "$GUI/com.datasecure.$job" 2>/dev/null || true
+    # bootout returns before the job is gone; bootstrapping too early fails with "5: Input/output error"
+    for _ in $(seq 1 20); do launchctl print "$GUI/com.datasecure.$job" >/dev/null 2>&1 || break; sleep 0.25; done
   done
 }
 
