@@ -40,6 +40,8 @@ check "watched websites are saved and past hacks found" \
   'post /api/services "{\"domains\":[\"https://www.LinkedIn.com/\"]}" | /usr/bin/ruby -rjson -e "r = JSON.parse(STDIN.read); exit(r[%q(domains)] == [%q(linkedin.com)] && r[%q(breaches)].any? ? 0 : 1)"'
 check "daily check runs (dry run, no notification)" '/usr/bin/ruby datasecure.rb --daily --dry-run | grep -q "known breaches"'
 check "shield profile is a valid Mac profile" '/usr/bin/ruby datasecure.rb --profile "$TMP/s.mobileconfig" && plutil -lint -s "$TMP/s.mobileconfig"'
+# macOS refuses a user-scoped DNS profile: "profile must be scoped to system" (shown as "VPN service could not be created")
+check "shield profile applies to the whole Mac" '[ "$(plutil -extract PayloadScope raw "$TMP/s.mobileconfig" 2>/dev/null)" = System ]'
 if [ -f "$TMP/ip2asn-combined.tsv" ]; then
   check "8.8.8.8 belongs to Google in the US" '/usr/bin/ruby datasecure.rb --lookup 8.8.8.8 | grep -q "\"country\":\"US\",\"org\":\"GOOGLE\""'
   check "IPv6 lookup works" '/usr/bin/ruby datasecure.rb --lookup 2a00:1450:4001:80b::200e | grep -q GOOGLE'

@@ -177,6 +177,7 @@ def shield_profile
       <key>PayloadDisplayName</key><string>DataSecure Private Shield</string>
       <key>PayloadIdentifier</key><string>com.datasecure.shield.#{uuid}</string>
       <key>PayloadRemovalDisallowed</key><false/>
+      <key>PayloadScope</key><string>System</string>
       <key>PayloadType</key><string>Configuration</string>
       <key>PayloadUUID</key><string>#{uuid}</string>
       <key>PayloadVersion</key><integer>1</integer>
